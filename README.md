@@ -48,7 +48,7 @@
 
 | Layer | Technology |
 |-------|-----------|
-| **Frontend** | Vanilla HTML, CSS, JavaScript — no build step required |
+| **Frontend** | HTML, CSS, JavaScript  |
 | **Backend** | Node.js + Express 5 |
 | **Database** | MongoDB with Mongoose 9 ODM |
 | **Auth** | JSON Web Tokens (bcryptjs for password hashing) |
