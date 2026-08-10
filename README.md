@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/gubs1888/Study-Reset/main/docs/banner.png" alt="StudyReset Banner" width="100%" />
-</p>
+
 
 <h1 align="center">📚 StudyReset</h1>
 
