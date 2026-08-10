@@ -53,7 +53,7 @@
 | **Database** | MongoDB with Mongoose 9 ODM |
 | **Auth** | JSON Web Tokens (bcryptjs for password hashing) |
 | **Testing** | Node test runner, Supertest, Playwright E2E |
-| **DevOps** | Docker, GitHub Actions CI |
+| **DevOps** | Docker|
 
 ---
 
