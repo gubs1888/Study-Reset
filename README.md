@@ -240,6 +240,3 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">
-  Built with ☕ and determination to never fall behind on studies again.
-</p>
