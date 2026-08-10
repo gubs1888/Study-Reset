@@ -1,0 +1,23 @@
+{
+  "name": "studyreset",
+  "version": "1.0.0",
+  "description": "A focused study planner for turning clear tasks into steady progress.",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix server start",
+    "dev": "npm --prefix server run dev",
+    "setup": "npm ci --prefix server",
+    "check": "npm --prefix server run check:all",
+    "test:unit": "npm --prefix server run test:unit",
+    "test:api": "npm --prefix server run test:api",
+    "test:e2e": "npm --prefix server run test:e2e",
+    "test": "npm --prefix server test",
+    "test:all": "npm --prefix server run test:all"
+  },
+  "keywords": ["study-planner", "productivity", "express", "mongodb"],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
