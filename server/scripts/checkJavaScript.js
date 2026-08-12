@@ -9,6 +9,7 @@ const projectDirectory = path.resolve(serverDirectory, "..");
 const ignoredDirectories = new Set([
   ".git",
   "coverage",
+  "dist",
   "node_modules",
   "playwright-report",
   "test-results",
@@ -24,7 +25,7 @@ const collectJavaScript = async (directory) => {
       if (!ignoredDirectories.has(entry.name)) {
         files.push(...await collectJavaScript(entryPath));
       }
-    } else if (entry.isFile() && entry.name.endsWith(".js")) {
+    } else if (entry.isFile() && (entry.name.endsWith(".js") || entry.name.endsWith(".cjs") || entry.name.endsWith(".mjs")) && !entryPath.includes("/client/")) {
       files.push(entryPath);
     }
   }
@@ -32,9 +33,7 @@ const collectJavaScript = async (directory) => {
   return files;
 };
 
-const roots = process.argv.includes("--all")
-  ? [serverDirectory, path.join(projectDirectory, "client")]
-  : [serverDirectory];
+const roots = [serverDirectory];
 const files = (await Promise.all(roots.map(collectJavaScript)))
   .flat()
   .sort((left, right) => left.localeCompare(right));
@@ -54,5 +53,19 @@ for (const file of files) {
   }
 }
 
+if (process.argv.includes("--all")) {
+  const clientBuildResult = spawnSync("npm", ["run", "build"], {
+    cwd: path.join(projectDirectory, "client"),
+    encoding: "utf8",
+  });
+  if (clientBuildResult.status !== 0) {
+    failed = true;
+    process.stderr.write("Client React build check failed:\n");
+    if (clientBuildResult.stdout) process.stderr.write(clientBuildResult.stdout);
+    if (clientBuildResult.stderr) process.stderr.write(clientBuildResult.stderr);
+  }
+}
+
 if (failed) process.exitCode = 1;
-else console.log(`JavaScript syntax check passed for ${files.length} files.`);
+else console.log(`JavaScript syntax check passed for ${files.length} server files${process.argv.includes("--all") ? " and React client build" : ""}.`);
+

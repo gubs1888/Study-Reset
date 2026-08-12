@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
@@ -14,7 +15,12 @@ import dailyPlanRoutes from "./routes/dailyPlanRoutes.js";
 import { rateLimit } from "./middleware/rateLimit.js";
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
-const defaultClientDirectory = path.resolve(currentDirectory, "../client");
+const distDirectory = path.resolve(currentDirectory, "../client/dist");
+const rawClientDirectory = path.resolve(currentDirectory, "../client");
+const defaultClientDirectory = fs.existsSync(path.join(distDirectory, "index.html"))
+  ? distDirectory
+  : rawClientDirectory;
+
 
 const securityHeaders = (_req, res, next) => {
   const isProd = process.env.NODE_ENV === "production";

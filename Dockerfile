@@ -5,12 +5,16 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 COPY --chown=node:node server/package.json server/package-lock.json ./server/
+COPY --chown=node:node client/package.json client/package-lock.json ./client/
 RUN npm ci --prefix server --omit=dev --ignore-scripts --no-audit --no-fund \
+    && npm ci --prefix client --ignore-scripts --no-audit --no-fund \
     && npm cache clean --force
 
 COPY --chown=node:node client ./client
 COPY --chown=node:node server ./server
 COPY --chown=node:node LICENSE ./LICENSE
+RUN npm run build --prefix client
+
 
 USER node
 
