@@ -63,6 +63,12 @@ if (process.argv.includes("--all")) {
     process.stderr.write("Client React build check failed:\n");
     if (clientBuildResult.stdout) process.stderr.write(clientBuildResult.stdout);
     if (clientBuildResult.stderr) process.stderr.write(clientBuildResult.stderr);
+    if (
+      (clientBuildResult.stderr && clientBuildResult.stderr.includes("vite: not found")) ||
+      (clientBuildResult.stdout && clientBuildResult.stdout.includes("vite: not found"))
+    ) {
+      process.stderr.write("\nHint: Client dependencies are missing. Run 'npm run setup' (or 'npm ci --prefix client') to install them.\n");
+    }
   }
 }
 
