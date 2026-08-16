@@ -36,7 +36,11 @@ export const TaskModal = () => {
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData);
 
-    values.estimatedMinutes = Number(values.estimatedMinutes);
+    if (values.estimatedMinutes !== undefined && values.estimatedMinutes !== "") {
+      values.estimatedMinutes = Number(values.estimatedMinutes);
+    } else {
+      delete values.estimatedMinutes;
+    }
     values.dueDate = values.dueDate || null;
     const id = task?._id;
 
@@ -129,11 +133,7 @@ export const TaskModal = () => {
             </div>
           )}
 
-          <div className="field-row">
-            <div className="field">
-              <label htmlFor="task-minutes">Estimated minutes</label>
-              <input id="task-minutes" name="estimatedMinutes" type="number" min="1" max="600" defaultValue={task?.estimatedMinutes || 25} required />
-            </div>
+          <div className="field-row single-field">
             <div className="field">
               <label htmlFor="task-priority">Priority</label>
               <select id="task-priority" name="priority" defaultValue={task?.priority || "medium"}>

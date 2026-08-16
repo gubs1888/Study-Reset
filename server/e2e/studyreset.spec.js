@@ -39,7 +39,6 @@ test("a student can complete the essential persisted StudyReset flow", async ({ 
   await page.getByRole("button", { name: "My tasks" }).click();
   await page.getByRole("button", { name: "+ Add study task" }).click();
   await page.getByLabel("Task title").fill("Practice algebra");
-  await page.getByLabel("Estimated minutes").fill("25");
   await page.getByRole("dialog").getByRole("button", { name: "Add task", exact: true }).click();
   await expect(page.getByText("Practice algebra", { exact: true })).toBeVisible();
 
